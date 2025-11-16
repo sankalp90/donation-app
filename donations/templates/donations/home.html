@@ -1,0 +1,21 @@
+{% extends 'donations/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to ShareHub</h1>
+    <p>Your platform for donating and requesting items.</p>
+
+    <div class="links">
+        <a href="{% url 'donation_map' %}" class="btn btn-primary">View Map</a>
+        <a href="{% url 'item_list' %}" class="btn btn-secondary">Browse Items</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'item_add' %}" class="btn btn-success">Add an Item</a>
+        {% else %}
+            <a href="{% url 'login' %}?next={% url 'item_add' %}" class="btn btn-success">Login to Add Items</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'donations/base.html' %}
+{% block content %}
+
+<h2 class="text-2xl font-bold mb-4">Available Donations Near You</h2>
+
+<div id="map" class="w-full h-96 rounded shadow"></div>
+
+<script>
+var map = L.map('map').setView([20.5937, 78.9629], 5);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+    .addTo(map);
+
+{% for item in items %}
+    L.marker([{{ item.latitude }}, {{ item.longitude }}])
+        .addTo(map)
+        .bindPopup(`<b>{{ item.title }}</b><br>
+                    Category: {{ item.category }}<br>
+                    <a href="/items/{{ item.id }}/">View</a>`);
+{% endfor %}
+</script>
+
+{% endblock %}

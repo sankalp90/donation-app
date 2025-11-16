@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ShareHub</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+
+<body class="bg-gray-100">
+    <nav class="bg-blue-600 text-white px-6 py-3 flex justify-between">
+        <a href="/" class="font-bold text-xl">ShareHub</a>
+        <div>
+            <a href="/items/add/" class="mr-4">Donate Item</a>
+            <a href="/my-donations/" class="mr-4">My Donations</a>
+            <a href="/my-requests/" class="mr-4">My Requests</a>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-6">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
