@@ -1,0 +1,47 @@
+{% extends "donations/base.html" %}
+
+{% block content %}
+<div class="flex flex-col md:flex-row gap-6">
+    <!-- Left: Item details -->
+    <div class="md:w-2/3 bg-white p-6 rounded shadow">
+        <h2 class="text-3xl font-bold mb-4 text-gray-800">{{ item.title }}</h2>
+        {% if item.image %}
+            <img src="{{ item.image.url }}" alt="{{ item.title }}" class="mb-4 rounded shadow-sm w-full max-h-80 object-cover">
+        {% endif %}
+        <p class="mb-2"><span class="font-semibold">Description:</span> {{ item.description|default:"No description" }}</p>
+        <p class="mb-2"><span class="font-semibold">Category:</span> {{ item.get_category_display }}</p>
+        <p class="mb-2"><span class="font-semibold">Condition:</span> {{ item.condition }}</p>
+        <p class="mb-2"><span class="font-semibold">Donor:</span> {{ item.donor.username }}</p>
+        <p class="mb-2"><span class="font-semibold">Created At:</span> {{ item.created_at|date:"M d, Y H:i" }}</p>
+        <p class="mb-2"><span class="font-semibold">Status:</span>
+            {% if item.is_claimed %}
+                <span class="text-red-600 font-bold">Claimed</span>
+            {% else %}
+                <span class="text-green-600 font-bold">Available</span>
+            {% endif %}
+        </p>
+    </div>
+
+    <!-- Right: Request form -->
+    <div class="md:w-1/3 bg-white p-6 rounded shadow">
+        {% if user.is_authenticated %}
+            {% if item.is_claimed %}
+                <p class="text-red-600 font-bold text-center">This item has already been claimed.</p>
+            {% else %}
+                <h3 class="text-xl font-bold mb-4 text-gray-800">Request This Item</h3>
+                <form method="POST" action="{% url 'request_item' pk=item.id %}" class="space-y-4">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
+                        Send Request
+                    </button>
+                </form>
+            {% endif %}
+        {% else %}
+            <p class="text-gray-700 text-center">
+                Please <a href="{% url 'login' %}" class="text-blue-600 underline">login</a> to request this item.
+            </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

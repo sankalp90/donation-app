@@ -1,0 +1,21 @@
+{% extends "donations/base.html" %}
+
+{% block content %}
+<h2 class="text-2xl font-bold mb-4">My Requests</h2>
+
+{% if requests %}
+    <ul class="space-y-4">
+        {% for req in requests %}
+        <li class="bg-white p-4 rounded shadow">
+            <strong>Item:</strong> {{ req.item.title }} <br>
+            <strong>Message:</strong> {{ req.message|default:"No message" }} <br>
+            <strong>Status:</strong> {% if req.approved %}Approved{% else %}Pending{% endif %} <br>
+            <strong>Requested at:</strong> {{ req.requested_at|date:"M d, Y H:i" }}
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have not requested any items yet.</p>
+{% endif %}
+{% endblock %}
+

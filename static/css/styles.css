@@ -1,0 +1,20 @@
+/* GENERAL SITE STYLES */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+img {
+    border-radius: 6px;
+}
+
+/* Form input styling */
+input, textarea, select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+}
+
+button {
+    cursor: pointer;
+}
